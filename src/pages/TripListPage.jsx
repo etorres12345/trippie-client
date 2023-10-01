@@ -8,9 +8,18 @@ function TripListPage() {
   const [trips, setTrips] = useState([]);
 
   const getAllTrips = () => {
+    const storedToken = localStorage.getItem("authToken");
     axios
-      .get(`${API_URL}/api/trips`)
-      .then((response) => setTrips(response.data))
+      .get(`${API_URL}/api/trips`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then((response) => {
+        if (Array.isArray(response.data)) {
+          setTrips(response.data);
+        } else {
+          console.log("Response data is not an array:", response.data);
+        }
+      })
       .catch((error) => console.log(error));
   };
   useEffect(() => {
@@ -19,15 +28,25 @@ function TripListPage() {
 
   return (
     <div className="TripListPage">
-      {trips.map((trip) => {
-        return (
-          <div className="TripCard card" key={trip._id}>
-            <Link to={`/trips/${trip._id}`}>
-              <h3>{trip.title}</h3>
-            </Link>
-          </div>
-        );
-      })}
+      {trips.length === 0 ? (
+        <p>No trips available.</p>
+      ) : (
+        trips.map((trip) => {
+          const places = trip.places || [];
+          return (
+            <div className="TripCard card" key={trip._id}>
+              <Link to={`/trips/${trip._id}`}>
+                <h3>{trip.city}</h3>
+              </Link>
+              <ul>
+                {places.map((place, index) => (
+                  <li key={index}>{place.name}</li>
+                ))}
+              </ul>
+            </div>
+          );
+        })
+      )}
     </div>
   );
 }
