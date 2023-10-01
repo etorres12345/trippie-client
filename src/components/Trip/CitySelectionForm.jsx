@@ -31,11 +31,12 @@ function CitySelectionForm() {
               {...getInputProps({
                 placeholder: "Search city...",
                 className: "location-search-input",
+                name: "autocomplete-name",
               })}
             />
             <div className="autocomplete-dropdown-container">
               {loading && <div>Loading...</div>}
-              {suggestions.map((suggestion) => {
+              {suggestions.map((suggestion, index) => {
                 const className = suggestion.active
                   ? "suggestion-item--active"
                   : "suggestion-item";

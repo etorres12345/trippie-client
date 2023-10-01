@@ -58,6 +58,7 @@ function TripCreateForm() {
             type="text"
             value={title}
             onChange={handleTitleChange}
+            name="trip-title"
             required
           />
         </label>
