@@ -14,6 +14,7 @@ function TripListPage() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
+        console.log(response);
         if (Array.isArray(response.data)) {
           setTrips(response.data);
         } else {
@@ -36,7 +37,7 @@ function TripListPage() {
           return (
             <div className="TripCard card" key={trip._id}>
               <Link to={`/trips/${trip._id}`}>
-                <h3>{trip.city}</h3>
+                <h3>{trip.title}</h3>
               </Link>
               <ul>
                 {places.map((place, index) => (

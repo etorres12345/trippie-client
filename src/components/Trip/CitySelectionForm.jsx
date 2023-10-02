@@ -4,8 +4,8 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-places-autocomplete";
 
-function CitySelectionForm() {
-  const [address, setAddress] = useState("");
+function CitySelectionForm({ address, setAddress }) {
+  // const [address, setAddress] = useState("");
   const [coordinates, setCoordinates] = useState(null);
 
   const handleSelect = (value) => {
@@ -18,6 +18,7 @@ function CitySelectionForm() {
       .catch((error) => console.error("Error selecting city:", error));
   };
 
+  // console.log(address);
   return (
     <div>
       <PlacesAutocomplete

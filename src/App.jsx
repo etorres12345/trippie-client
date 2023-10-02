@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import IsPrivate from "./components/IsPrivate";
 import IsAnon from "./components/isAnon";
 import TripCreateForm from "./pages/TripCreateForm";
+import RestaurantList from "./pages/RestaurantList";
 
 function App() {
   return (
@@ -36,6 +37,14 @@ function App() {
           element={
             <IsPrivate>
               <TripListPage />
+            </IsPrivate>
+          }
+        />
+        <Route
+          path="/restaurants"
+          element={
+            <IsPrivate>
+              <RestaurantList />
             </IsPrivate>
           }
         />

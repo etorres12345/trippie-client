@@ -3,11 +3,14 @@ import { useNavigate } from "react-router-dom";
 import PlacesAutocomplete from "react-places-autocomplete";
 import CitySelectionForm from "../components/Trip/CitySelectionForm";
 import axios from "axios";
+import RestaurantList from "./RestaurantList";
 
 function TripCreateForm() {
   const [title, setTitle] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
+  const [restaurants, setRestaurants] = useState([]);
   const [googleAPIReady, setGoogleAPIReady] = useState(false);
+  const [address, setAddress] = useState("");
+
   const navigate = useNavigate();
   const apiKey = import.meta.env.REACT_APP_GOOGLE_PLACES_API_KEY;
   const API_URL = "http://localhost:5005/api";
@@ -37,7 +40,7 @@ function TripCreateForm() {
       return;
     }
 
-    const requestBody = { title, city: selectedCity };
+    const requestBody = { title, city: address };
 
     axios
       .post(`${API_URL}/trips`, requestBody, {
@@ -50,8 +53,20 @@ function TripCreateForm() {
       .catch((error) => {
         console.error("Error creating trip:", error);
       });
-  };
 
+    axios
+      .get(`${API_URL}/restaurants/${address}`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then((response) => {
+        console.log("Restaurant Data:", response.data);
+        setRestaurants(response.data);
+      })
+      .catch((error) => {
+        console.log("Error getting restaurants:", error);
+      });
+  };
+  console.log(address, "parent");
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -68,11 +83,9 @@ function TripCreateForm() {
         <button type="submit">Create Trip</button>
       </form>
       {googleAPIReady && (
-        <CitySelectionForm
-          selectedCity={selectedCity}
-          setSelectedCity={setSelectedCity}
-        />
+        <CitySelectionForm address={address} setAddress={setAddress} />
       )}
+      {restaurants.length > 0 && <RestaurantList restaurants={restaurants} />}
     </div>
   );
 }
