@@ -10,7 +10,7 @@ function TripCreateForm() {
   const [googleAPIReady, setGoogleAPIReady] = useState(false);
   const navigate = useNavigate();
   const apiKey = import.meta.env.REACT_APP_GOOGLE_PLACES_API_KEY;
-  const API_URL = "http://localhost:5005";
+  const API_URL = "http://localhost:5005/api";
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -30,6 +30,7 @@ function TripCreateForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const storedToken = localStorage.getItem("authToken");
 
     if (!title || title.trim() === "") {
       alert("Please enter a valid trip title.");
@@ -39,7 +40,9 @@ function TripCreateForm() {
     const requestBody = { title, city: selectedCity };
 
     axios
-      .post(`${API_URL}/trips`, requestBody)
+      .post(`${API_URL}/trips`, requestBody, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
       .then((response) => {
         console.log("Trip created:", response);
         navigate(`/trips/${response.data._id}`);
