@@ -27,6 +27,20 @@ function TripListPage() {
     getAllTrips();
   }, []);
 
+  const deleteTrip = (tripId) => {
+    const storedToken = localStorage.getItem("authToken");
+    axios
+      .delete(`${API_URL}/api/trips/${tripId}`, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then(() => {
+        setTrips((prevTrips) =>
+          prevTrips.filter((trip) => trip._id !== tripId)
+        );
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div className="TripListPage">
       {trips.length === 0 ? (
@@ -44,6 +58,7 @@ function TripListPage() {
                   <li key={index}>{place.name}</li>
                 ))}
               </ul>
+              <button onClick={() => deleteTrip(trip._id)}>Delete Trip</button>
             </div>
           );
         })

@@ -10,6 +10,7 @@ function TripCreateForm() {
   const [restaurants, setRestaurants] = useState([]);
   const [googleAPIReady, setGoogleAPIReady] = useState(false);
   const [address, setAddress] = useState("");
+  const [tripId, setTripId] = useState("");
 
   const navigate = useNavigate();
   const apiKey = import.meta.env.REACT_APP_GOOGLE_PLACES_API_KEY;
@@ -23,50 +24,37 @@ function TripCreateForm() {
     if (!window.google) {
       return;
     }
-
     const placesService = new window.google.maps.places.PlacesService(
       document.createElement("div")
     );
-
     setGoogleAPIReady(true);
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const storedToken = localStorage.getItem("authToken");
-
     if (!title || title.trim() === "") {
       alert("Please enter a valid trip title.");
       return;
     }
-
     const requestBody = { title, city: address };
-
-    axios
-      .post(`${API_URL}/trips`, requestBody, {
+    console.log("b4try");
+    try {
+      const tripInfo = await axios.post(`${API_URL}/trips`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
-      })
-      .then((response) => {
-        console.log("Trip created:", response);
-        navigate(`/trips/${response.data._id}`);
-      })
-      .catch((error) => {
-        console.error("Error creating trip:", error);
       });
-
-    axios
-      .get(`${API_URL}/restaurants/${address}`, {
+      setTripId(tripInfo.data._id);
+      const foundRest = await axios.get(`${API_URL}/restaurants/${address}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
-      })
-      .then((response) => {
-        console.log("Restaurant Data:", response.data);
-        setRestaurants(response.data);
-      })
-      .catch((error) => {
-        console.log("Error getting restaurants:", error);
       });
+      setRestaurants(foundRest.data);
+    } catch (error) {
+      console.error(error);
+      console.log("catch");
+    }
   };
-  console.log(address, "parent");
+
+  // console.log(tripId, restaurants);
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -85,7 +73,9 @@ function TripCreateForm() {
       {googleAPIReady && (
         <CitySelectionForm address={address} setAddress={setAddress} />
       )}
-      {restaurants.length > 0 && <RestaurantList restaurants={restaurants} />}
+      {restaurants.length > 0 && (
+        <RestaurantList restaurants={restaurants} tripId={tripId} />
+      )}
     </div>
   );
 }
