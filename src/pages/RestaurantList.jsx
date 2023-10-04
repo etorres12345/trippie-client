@@ -36,7 +36,7 @@ function RestaurantList({ restaurants, tripId }) {
   }
 
   return (
-    <div>
+    <div className="restaurant-list-container">
       <h1>Restaurant Options</h1>
       <ul>
         {restaurants.map((restaurant) => (

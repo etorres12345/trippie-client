@@ -49,17 +49,32 @@ function TripListPage() {
         trips.map((trip) => {
           const places = trip.places || [];
           return (
-            <div className="TripCard card" key={trip._id}>
-              <Link to={`/trips/${trip._id}`}>
-                <h3>{trip.title}</h3>
-              </Link>
-              <ul>
-                {places.map((place, index) => (
-                  <li key={index}>{place.name}</li>
-                ))}
-              </ul>
-              <button onClick={() => deleteTrip(trip._id)}>Delete Trip</button>
-            </div>
+            <>
+              <div className="hero-section" key={trip._id}>
+                <div className="card-grid">
+                  <a className="card">
+                    {/* <div className="card__background">
+                      <img src="/images/4745_foodie.jpg" />
+                    </div> */}
+                    <div className="card__content">
+                      <ul className="trip-list-ul">
+                        {places.map((place, index) => (
+                          <li className="card__category">{place.name}</li>
+                        ))}
+                      </ul>
+                      <Link to={`/trips/${trip._id}`}>
+                        <h3 className="card__heading">{trip.title}</h3>
+                      </Link>
+                      <img
+                        className="trash"
+                        src="/images/trash.png"
+                        onClick={() => deleteTrip(trip._id)}
+                      />
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </>
           );
         })
       )}
@@ -68,3 +83,21 @@ function TripListPage() {
 }
 
 export default TripListPage;
+
+{
+  /* <div className="TripCard card" key={trip._id}>
+              <Link to={`/trips/${trip._id}`}>
+                <h3>{trip.title}</h3>
+              </Link>
+              <ul className="trip-list-ul">
+                {places.map((place, index) => (
+                  <li key={index}>{place.name}</li>
+                ))}
+              </ul>
+              <img
+                className="trash"
+                src="/images/trash.png"
+                onClick={() => deleteTrip(trip._id)}
+              />
+            </div> */
+}
