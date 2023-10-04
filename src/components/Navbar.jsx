@@ -6,29 +6,44 @@ function Navbar() {
   const { isLoggedIn, user, logOutUser } = useContext(AuthContext);
 
   return (
-    <nav>
-      <Link to="/">
-        <button>Home</button>
-      </Link>
-      {isLoggedIn && (
-        <>
-          <Link to="/trips">
-            <button>Trips</button>
-          </Link>
-          <button onClick={logOutUser}>Logout</button>
-          <span>{user && user.name}</span>
-        </>
-      )}
-      {!isLoggedIn && (
-        <>
-          <Link to="/signup">
-            <button>Sign Up</button>
-          </Link>
-          <Link to="/login">
-            <button>Login</button>
-          </Link>
-        </>
-      )}
+    <nav className="navbar">
+      <input
+        className="menu-icon"
+        type="checkbox"
+        id="menu-icon"
+        name="menu-icon"
+      />
+      <label htmlFor="menu-icon"></label>
+      <nav className="nav">
+        <ul>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          {isLoggedIn && (
+            <div htmlFor="menu-icon">
+              <li>
+                <a href="/trips">My Trips</a>
+              </li>
+              <li>
+                <a href="/create-trip">New Trip</a>
+              </li>
+              <li onClick={logOutUser}>
+                <a>Logout</a>
+              </li>
+            </div>
+          )}
+          {!isLoggedIn && (
+            <div htmlFor="menu-icon">
+              <li>
+                <a href="/signup">Signup</a>
+              </li>
+              <li>
+                <a href="/login">Login</a>
+              </li>
+            </div>
+          )}
+        </ul>
+      </nav>
     </nav>
   );
 }

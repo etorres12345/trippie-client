@@ -1,11 +1,13 @@
 import React from "react";
 import axios from "axios";
+import { useState } from "react";
 
 function RestaurantList({ restaurants, tripId }) {
   // console.log("props", props);
   const apiKey = import.meta.env.REACT_APP_GOOGLE_PLACES_API_KEY2;
   const API_URL = "http://localhost:5005/api";
   const storedToken = localStorage.getItem("authToken");
+  const [addedRestaurants, setAddedRestaurants] = useState([]);
 
   const handleAddToTrip = (restaurant) => {
     console.log("trup id:", restaurant.place_id, tripId);
@@ -22,6 +24,7 @@ function RestaurantList({ restaurants, tripId }) {
       )
       .then((response) => {
         console.log("Restaurant added to trip:", response.data);
+        setAddedRestaurants([...addedRestaurants, restaurant.place_id]);
       })
       .catch((error) => {
         console.error("Error adding restaurant to trip:", error);
@@ -49,9 +52,13 @@ function RestaurantList({ restaurants, tripId }) {
                 alt={`Photo ${photoIndex}`}
               />
             ))}
-            <button onClick={() => handleAddToTrip(restaurant)}>
-              Add to Trip
-            </button>
+            {addedRestaurants.includes(restaurant.place_id) ? (
+              <button>Added!</button>
+            ) : (
+              <button onClick={() => handleAddToTrip(restaurant)}>
+                Add to Trip
+              </button>
+            )}
           </li>
         ))}
       </ul>

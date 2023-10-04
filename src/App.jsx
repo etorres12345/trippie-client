@@ -10,6 +10,7 @@ import IsAnon from "./components/isAnon";
 import TripCreateForm from "./pages/TripCreateForm";
 import RestaurantList from "./pages/RestaurantList";
 import TripDetailsPage from "./pages/TripDetailsPage";
+import SearchAndAddRestaurants from "./components/Trip/SearchAndAddRestauants";
 
 function App() {
   return (
@@ -54,6 +55,14 @@ function App() {
           element={
             <IsPrivate>
               <TripDetailsPage />
+            </IsPrivate>
+          }
+        />
+        <Route
+          path="/search-restaurants/:city"
+          element={
+            <IsPrivate>
+              <SearchAndAddRestaurants />
             </IsPrivate>
           }
         />

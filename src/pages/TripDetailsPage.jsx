@@ -72,6 +72,10 @@ function TripDetailsPage(props) {
                 alt={`Photo ${photoIndex}`}
               />
             ))}
+            {console.log(trip)}
+            <Link to={`/search-restaurants/${trip.city}`}>
+              <button>Add more restaurants</button>
+            </Link>
             <button onClick={() => handleDeleteRestaurant(place.place_id)}>
               Delete Restaurant
             </button>
