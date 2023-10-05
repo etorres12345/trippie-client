@@ -32,29 +32,63 @@ function SignupPage(props) {
   };
 
   return (
-    <div className="SignupPage">
-      <h1>Sign Up</h1>
+    <div className="signup-container">
+      <h1 className="signup-title">Sign Up</h1>
 
-      <form onSubmit={handleSignupSubmit}>
-        <label>Email:</label>
-        <input type="email" name="email" value={email} onChange={handleEmail} />
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePassword}
-        />
-        <label>Name:</label>
-        <input type="text" name="name" value={name} onChange={handleName} />
+      <form onSubmit={handleSignupSubmit} className="signup-form">
+        <div className="form-group">
+          <label className="signup-label" htmlFor="email">
+            Email:
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={handleEmail}
+            className="input-field"
+          />
+        </div>
 
-        <button type="submit">Sign Up</button>
+        <div className="form-group">
+          <label className="signup-label" htmlFor="password">
+            Password:
+          </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={handlePassword}
+            className="input-field"
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="signup-label" htmlFor="name">
+            Name:
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={name}
+            onChange={handleName}
+            className="input-field"
+          />
+        </div>
+
+        <button type="submit" className="signup-button">
+          Sign Up
+        </button>
       </form>
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       <p>Already have an account?</p>
-      <Link to={"/login"}>Login</Link>
+      <Link to={"/login"} className="login-link">
+        Login
+      </Link>
     </div>
   );
 }

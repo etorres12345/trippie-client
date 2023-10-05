@@ -46,44 +46,65 @@ function TripDetailsPage(props) {
   };
 
   return (
-    <div className="TripDetails">
+    <div className="trip-details-container">
       {trip && (
-        <>
-          <h1>{trip.title}</h1>
-        </>
+        <div className="details-heading-div">
+          <div className="details-h1">
+            <h1>{trip.title}</h1>
+          </div>
+          <div className="details-h2">
+            <h2>Restaurants on my list:</h2>
+          </div>
+        </div>
       )}
+      <div className="details-map-div">
+        {trip &&
+          trip.places.map((place) => (
+            <ul classname="details-ul">
+              <li className="details-li" key={place.place_id}>
+                <div className="details-heading3">
+                  <h2>{place.name}</h2>
+                </div>
+                <p>Address: {place.formatted_address}</p>
+                <p>Restaurant Rating: {place.rating}/5 stars!</p>
+                <p>Price Level: {place.price_level || "N/A"}</p>
+                <p>
+                  {place.opening_hours.open_now === true
+                    ? "open now!"
+                    : "Not open at this hour, check again later!"}
+                </p>
+                <div>
+                  {place.photos?.map((photo, photoIndex) => (
+                    <img
+                      key={photoIndex}
+                      src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photo_reference}&key=AIzaSyAhQy6UWV1FaTln5le2QsDLbbR6scvhmiA`}
+                      alt={`Photo ${photoIndex}`}
+                      className="details-img"
+                    />
+                  ))}
+                </div>
+                {console.log(trip)}
 
-      {trip &&
-        trip.places.map((place) => (
-          <li className="PlaceCard" key={place.place_id}>
-            <h2>{place.name}</h2>
-            <p>Address: {place.formatted_address}</p>
-            <p>Restaurant Rating: {place.rating}/5 stars!</p>
-            <p>Price Level: {place.price_level || "N/A"}</p>
-            <p>
-              {place.opening_hours.open_now === true
-                ? "open now!"
-                : "Not open at this hour, check again later!"}
-            </p>
-            {place.photos?.map((photo, photoIndex) => (
-              <img
-                key={photoIndex}
-                src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photo.photo_reference}&key=AIzaSyAhQy6UWV1FaTln5le2QsDLbbR6scvhmiA`}
-                alt={`Photo ${photoIndex}`}
-              />
-            ))}
-            {console.log(trip)}
-            <Link to={`/search-restaurants/${trip.city}`}>
-              <button>Add more restaurants</button>
-            </Link>
-            <button onClick={() => handleDeleteRestaurant(place.place_id)}>
-              Delete Restaurant
-            </button>
-          </li>
-        ))}
-      <Link to="/trips">
-        <button>Back to Trips</button>
-      </Link>
+                <button
+                  className="restaurant-list-add-button3"
+                  onClick={() => handleDeleteRestaurant(place.place_id)}
+                >
+                  Delete Restaurant
+                </button>
+              </li>
+            </ul>
+          ))}
+      </div>
+      <div className="more-options-details">
+        <Link to={`/search-restaurants/${trip?.city}`}>
+          <button className="restaurant-list-add-button2">
+            Add more restaurants
+          </button>
+        </Link>
+        <Link to="/trips">
+          <button className="restaurant-list-add-button2">Back to Trips</button>
+        </Link>
+      </div>
     </div>
   );
 }

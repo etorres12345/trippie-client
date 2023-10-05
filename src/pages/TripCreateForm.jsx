@@ -43,7 +43,10 @@ function TripCreateForm() {
       const tripInfo = await axios.post(`${API_URL}/trips`, requestBody, {
         headers: { Authorization: `Bearer ${storedToken}` },
       });
+
       setTripId(tripInfo.data._id);
+      localStorage.setItem("tripIdStorage", tripInfo.data._id);
+
       const foundRest = await axios.get(`${API_URL}/restaurants/${address}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       });
@@ -56,23 +59,34 @@ function TripCreateForm() {
 
   // console.log(tripId, restaurants);
   return (
-    <div>
+    <div className="search-form">
       <form onSubmit={handleSubmit}>
-        <label>
-          Trip Title:
-          <input
-            type="text"
-            value={title}
-            onChange={handleTitleChange}
-            name="trip-title"
-            required
-          />
-        </label>
-        <button type="submit">Create Trip</button>
+        <div className="label1">
+          <label>Trip Title:</label>
+          <div>
+            <input
+              type="text"
+              value={title}
+              onChange={handleTitleChange}
+              name="trip-title"
+              required
+            />
+          </div>
+        </div>
+        <div className="label1">
+          <label>
+            City:
+            {googleAPIReady && (
+              <CitySelectionForm address={address} setAddress={setAddress} />
+            )}
+          </label>
+        </div>
+        <div>
+          <button className="create-trip-button" type="submit">
+            Create Trip
+          </button>
+        </div>
       </form>
-      {googleAPIReady && (
-        <CitySelectionForm address={address} setAddress={setAddress} />
-      )}
       {restaurants.length > 0 && (
         <RestaurantList restaurants={restaurants} tripId={tripId} />
       )}
