@@ -119,6 +119,7 @@ body {
   -webkit-text-fill-color: transparent;
   text-fill-color: transparent;
   color: transparent;
+  margin-bottom: 1.1em;
 }
 
 [type="checkbox"]:checked,
@@ -358,12 +359,12 @@ body {
   --background-dark: #2d3548;
   --text-light: rgba(255, 255, 255, 0.6);
   --text-lighter: rgba(255, 255, 255, 0.9);
-  --spacing-s: 8px;
+  --spacing-s: 28px;
   --spacing-m: 16px;
-  --spacing-l: 24px;
+  --spacing-l: 5px;
   --spacing-xl: 32px;
-  --spacing-xxl: 64px;
-  --width-container: 1200px;
+  --spacing-xxl: 1px;
+  --width-container: 650px;
 }
 
 .hero-section {
@@ -533,9 +534,8 @@ body {
   padding: 2em;
   margin-top: 1.5em;
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin-left: 30%;
+  margin: 1em auto;
 }
 .restaurant-list-add-button3:hover {
   background-color: #f9eef9;
@@ -655,7 +655,7 @@ body {
 }
 .details-li {
   list-style: none;
-  margin: 3em 0;
+  margin: 1em 0;
   background-color: #f9d8f9;
   padding: 2em;
   border-radius: 2em;
@@ -664,7 +664,7 @@ body {
   box-shadow: 0px 20px 20px rgba(95, 60, 95, 0.4);
 }
 .details-heading {
-  font-size: 2em;
+  font-size: 25em;
   padding: 0.5em;
 }
 .details-heading3 {
@@ -679,6 +679,7 @@ body {
 }
 .details-img {
   border-radius: 0.5em;
+  margin-bottom: 1.2em;
 }
 .restaurant-list-add-button2 {
   text-decoration: none;
@@ -701,7 +702,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 11%;
 }
 .restaurant-list-add-button2:hover {
   background-color: #f9eef9;
@@ -710,7 +710,11 @@ body {
   transform: translateY(-7px);
 }
 .details-map-div {
-  margin-left: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 7%;
 }
 .login-container {
   max-width: 400px;
