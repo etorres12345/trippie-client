@@ -14,7 +14,7 @@ function TripCreateForm() {
 
   const navigate = useNavigate();
   const apiKey = import.meta.env.REACT_APP_GOOGLE_PLACES_API_KEY;
-  const API_URL = "http://localhost:5005/api";
+  const API_URL = "https://trippie.onrender.com/api";
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);

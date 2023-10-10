@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 function SearchAndAddRestaurants() {
   const { city } = useParams();
   const [restaurants, setRestaurants] = useState([]);
-  const API_URL = "http://localhost:5005/api";
+  const API_URL = "https://trippie.onrender.com/api";
 
   useEffect(() => {
     const fetchRestaurants = async () => {

@@ -5,7 +5,7 @@ import { useState } from "react";
 function RestaurantList({ restaurants, tripId }) {
   // console.log("props", props);
   const apiKey = import.meta.env.REACT_APP_GOOGLE_PLACES_API_KEY2;
-  const API_URL = "http://localhost:5005/api";
+  const API_URL = "https://trippie.onrender.com/api";
   const storedToken = localStorage.getItem("authToken");
   const [addedRestaurants, setAddedRestaurants] = useState([]);
 
