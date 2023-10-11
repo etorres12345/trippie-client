@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const API_URL = "https://trippie.onrender.com";
+const API_URL = import.meta.env.VITE_SERVER_URL;
 
 function SignupPage(props) {
   const [email, setEmail] = useState("");
@@ -21,7 +21,7 @@ function SignupPage(props) {
     const requestBody = { email, password, name };
 
     axios
-      .post(`${API_URL}/auth/signup`, requestBody)
+      .post(`${API_URL}/signup`, requestBody)
       .then((response) => {
         navigate("/login");
       })

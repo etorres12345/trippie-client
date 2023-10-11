@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const API_URL = "https://trippie.onrender.com";
+const API_URL = import.meta.env.VITE_SERVER_URL;
 
 function TripListPage() {
   const [trips, setTrips] = useState([]);
@@ -10,7 +10,7 @@ function TripListPage() {
   const getAllTrips = () => {
     const storedToken = localStorage.getItem("authToken");
     axios
-      .get(`${API_URL}/api/trips`, {
+      .get(`${API_URL}/trips`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
@@ -30,7 +30,7 @@ function TripListPage() {
   const deleteTrip = (tripId) => {
     const storedToken = localStorage.getItem("authToken");
     axios
-      .delete(`${API_URL}/api/trips/${tripId}`, {
+      .delete(`${API_URL}/trips/${tripId}`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then(() => {

@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 
-const API_URL = "https://trippie.onrender.com";
+const API_URL = import.meta.env.VITE_SERVER_URL;
 
 function LoginPage(props) {
   const [email, setEmail] = useState("");
@@ -22,7 +22,7 @@ function LoginPage(props) {
     const requestBody = { email, password };
 
     axios
-      .post(`${API_URL}/auth/login`, requestBody)
+      .post(`${API_URL}/login`, requestBody)
       .then((response) => {
         console.log("JWT token", response.data.authToken);
 

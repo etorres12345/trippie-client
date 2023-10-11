@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-const API_URL = "https://trippie.onrender.com";
+const API_URL = import.meta.env.VITE_SERVER_URL;
 
 const AuthContext = React.createContext();
 
@@ -18,7 +18,7 @@ function AuthProviderWrapper(props) {
 
     if (storedToken) {
       axios
-        .get(`${API_URL}/auth/verify`, {
+        .get(`${API_URL}/verify`, {
           headers: { Authorization: `Bearer ${storedToken}` },
         })
         .then((response) => {
